@@ -279,9 +279,37 @@ const filteredResults = searchQuery
   </div>
 )}
 
-      <header className="site-header fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-black/40 border-b border-white/5">
-        <div className="transition-all duration-500 ease-out px-0">
-          <div className={`header-inner max-w-[1400px] mx-auto ${scrolled ? 'header-scrolled' : ''}`}>
+      <header
+  className={`
+    fixed top-0 left-0 w-full z-50
+    transition-all duration-300
+    ${
+      scrolled
+        ? 'px-3 pt-3'
+        : 'px-0 pt-0'
+    }
+  `}
+>
+        <div
+  className={`
+    transition-all duration-300 ease-out
+    ${
+      scrolled
+        ? 'max-w-6xl mx-auto'
+        : 'w-full'
+    }
+  `}
+>
+          <div
+  className={`
+    transition-all duration-300
+    ${
+      scrolled
+        ? 'bg-black/85 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl'
+        : 'bg-black/40 border-b border-white/5'
+    }
+  `}
+>
             <div className="px-3 sm:px-5">
               <div className="flex items-center h-14 sm:h-16">
                 {/* Logo */}

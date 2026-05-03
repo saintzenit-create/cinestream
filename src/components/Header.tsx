@@ -283,102 +283,97 @@ const filteredResults = searchQuery
   className={`
     fixed top-0 left-0 w-full z-50
     transition-all duration-300
-    ${
-      scrolled
-        ? 'px-3 pt-3'
-        : 'px-0 pt-0'
-    }
+    ${scrolled ? 'pt-3 px-4' : 'pt-0 px-0'}
   `}
 >
-        <div
+  <div
+    className={`
+      transition-all duration-300
+      ${scrolled ? 'max-w-5xl mx-auto' : 'w-full'}
+    `}
+  >
+    <div
   className={`
-    transition-all duration-300 ease-out
+    transition-all duration-300 overflow-hidden
     ${
       scrolled
-        ? 'max-w-6xl mx-auto'
-        : 'w-full'
+        ? 'bg-black/85 backdrop-blur-2xl border border-white/10 rounded-[999px] shadow-2xl'
+        : 'bg-black/40 border-b border-white/5 rounded-none'
     }
   `}
 >
-          <div
-  className={`
-    transition-all duration-300
-    ${
-      scrolled
-        ? 'bg-black/85 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl'
-        : 'bg-black/40 border-b border-white/5'
-    }
-  `}
->
-            <div className="px-3 sm:px-5">
-              <div className="flex items-center h-14 sm:h-16">
-                {/* Logo */}
-                <div className="flex items-center mr-6 lg:mr-8">
-                  <Link href="/" className="flex items-center shrink-0">
-                    <span className="text-white font-black text-xl tracking-tight header-nav-text">
-                      <span style={{ color: '#d50032' }}>CINE</span>STREAM
-                    </span>
-                  </Link>
-                </div>
+      <div className="px-3 sm:px-5">
+        <div className="flex items-center h-14 sm:h-16">
 
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-0.5 flex-1">
-                  {navItems.map((item, idx) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 header-nav-text ${
-  pathname === item.href
-    ? 'text-white font-bold bg-white/10'
-    : `text-white font-medium hover:bg-white/10 ${
-        idx >= 4 ? 'hidden lg:flex' : ''
-      }`
-}`}
-                    >
-                      <span className={idx === 0 ? 'text-[#d50032]' : 'text-white/70'}>
-                        {item.icon}
-                      </span>
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav>
-
-                <div className="flex-1 md:hidden" />
-
-                {/* Right Actions */}
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  <button
-                    onClick={() => setSearchOpen(true)}
-                    className="p-2.5 text-white hover:bg-white/10 transition rounded-full header-nav-text"
-                    aria-label="Search"
-                  >
-                    <SearchIcon />
-                  </button>
-                  <Link
-                    href="/auth/login"
-                    className="hidden sm:inline-flex items-center text-sm font-medium text-white transition px-4 py-1.5 rounded-full border border-white/30 hover:border-white/60 header-nav-text"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/auth/register"
-                    className="hidden sm:inline-flex items-center text-sm btn-gradient px-4 py-1.5 rounded-full"
-                  >
-                    Sign Up
-                  </Link>
-                  <button
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                    className="md:hidden flex items-center gap-1 p-1.5 text-white hover:bg-white/10 rounded-full transition header-nav-text min-h-[44px]"
-                    aria-label="Menu"
-                  >
-                    {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-                  </button>
-                </div>
-              </div>
-            </div>
+          {/* Logo */}
+          <div className="flex items-center mr-6 lg:mr-8">
+            <Link href="/" className="flex items-center shrink-0">
+              <span className="text-white font-black text-xl tracking-tight">
+                <span style={{ color: '#d50032' }}>CINE</span>STREAM
+              </span>
+            </Link>
           </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-0.5 flex-1">
+            {navItems.map((item, idx) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all duration-200 ${
+                  pathname === item.href
+                    ? 'text-white font-bold bg-white/10'
+                    : `text-white font-medium hover:bg-white/10 ${
+                        idx >= 4 ? 'hidden lg:flex' : ''
+                      }`
+                }`}
+              >
+                <span className={idx === 0 ? 'text-[#d50032]' : 'text-white/70'}>
+                  {item.icon}
+                </span>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex-1 md:hidden" />
+
+          {/* Right Actions */}
+          <div className="flex items-center gap-1 sm:gap-1.5">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2.5 text-white hover:bg-white/10 transition rounded-full"
+            >
+              <SearchIcon />
+            </button>
+
+            <Link
+              href="/auth/login"
+              className="hidden sm:inline-flex items-center text-sm font-medium text-white transition px-4 py-1.5 rounded-full border border-white/30 hover:border-white/60"
+            >
+              Sign In
+            </Link>
+
+            <Link
+              href="/auth/register"
+              className="hidden sm:inline-flex items-center text-sm btn-gradient px-4 py-1.5 rounded-full"
+            >
+              Sign Up
+            </Link>
+
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden flex items-center gap-1 p-1.5 text-white hover:bg-white/10 rounded-full transition min-h-[44px]"
+            >
+              {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+          </div>
+
         </div>
-      </header>
+      </div>
+    </div>
+  </div>
+</header>
 
       {/* Mobile Menu */}
       {/* Mobile Menu */}
@@ -417,7 +412,7 @@ const filteredResults = searchQuery
             key={item.href}
             href={item.href}
             onClick={() => setMobileOpen(false)}
-            className={`flex items-center gap-3 px-4 py-4 rounded-2xl text-base transition ${
+            className={`flex items-center gap-3 px-4 py-4 rounded-full text-base transition ${
               idx === 0
                 ? 'bg-[#d50032]/20 text-[#ff2d5e] font-bold'
                 : 'text-white/70 hover:bg-white/5 hover:text-white'

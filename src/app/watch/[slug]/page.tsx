@@ -69,11 +69,20 @@ useEffect(() => {
 
             <div className="aspect-video rounded-2xl overflow-hidden bg-zinc-900">
 
-              <iframe
-                src={currentServer}
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
+              {currentServer.endsWith(".mp4") ? (
+  <video
+  src={currentServer}
+  controls
+  poster={video.poster}
+  className="w-full h-full object-contain bg-black"
+/>
+) : (
+  <iframe
+    src={currentServer}
+    allowFullScreen
+    className="w-full h-full"
+  />
+)}
 
             </div>
 

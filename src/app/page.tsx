@@ -35,7 +35,11 @@ export default function HomePage() {
       <section
         className="relative h-[85vh] flex items-end"
         style={{
-          backgroundImage: `url(${featured.poster})`,
+          backgroundImage: `url(${
+  featured.poster ||
+  featured.thumbnail ||
+  "/assets/images/no_image.png"
+})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -85,7 +89,7 @@ export default function HomePage() {
       {history.map((item) => (
 
         <VideoCard
-          key={item.id}
+          key={`${item.id}-${item.slug}`}
           item={item}
         />
 

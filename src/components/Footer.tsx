@@ -42,16 +42,18 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center shrink-0">
-              <span className="text-white font-black text-lg tracking-tight">
-                <span style={{ color: '#d50032' }}>CINE</span>STREAM
-              </span>
-            </Link>
-          </div>
+  <Link href="/" className="flex items-center shrink-0">
+    <img
+      src="/assets/images/logo.png"
+      alt="Clitore"
+      className="h-6 w-auto object-contain"
+    />
+  </Link>
+</div>
 
           {/* Disclaimer */}
           <p className="text-[11px] sm:text-xs text-[#707070] text-center leading-relaxed max-w-2xl">
-            CineStream tidak menyimpan atau mendistribusikan file media apapun. Semua konten diambil secara otomatis dari penyedia pihak ketiga di Internet. Kami hanya menyediakan platform pencarian dan informasi konten hiburan.
+            Clitore tidak menyimpan atau mendistribusikan file media apapun. Semua konten diambil secara otomatis dari penyedia pihak ketiga di Internet. Kami hanya menyediakan platform pencarian dan informasi konten hiburan.
           </p>
 
           {/* Social */}

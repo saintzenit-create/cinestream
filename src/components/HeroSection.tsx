@@ -35,15 +35,19 @@ export default function HeroSection({ item }: HeroSectionProps) {
     <section className="relative w-full min-h-[92svh] bg-black overflow-hidden">
       {/* BG */}
       {!imgError ? (
-        <Image
-          src={item.image}
-          alt={item.alt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center scale-105"
-          onError={() => setImgError(true)}
-        />
+       <Image
+  src={
+    item.poster ||
+    item.thumbnail ||
+    "/assets/images/no_image.png"
+  }
+  alt={item.title}
+  fill
+  priority
+  sizes="100vw"
+  className="object-cover object-center scale-105"
+  onError={() => setImgError(true)}
+/>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-[#180008] via-black to-black" />
       )}

@@ -2,98 +2,82 @@
   {
     "id": 1,
 
-    "title": "Japanese Office Seduction",
+    "title": "alien tiktoker 1",
 
-    "slug": "japanese-office-seduction",
+    "slug": "alien-tiktoker-1",
 
     "thumbnail":
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+      "/assets/images/alien1.png",
 
     "poster":
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+      "/assets/images/alien1.png",
 
     "servers": [
       {
         "name": "Server 1",
 
         "url":
-          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
-      },
-
-      {
-        "name": "Backup",
-
-        "url":
-          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
+          "https://cdn.videy.co/GrAqda8n1.mp4"
       }
     ],
 
-    "duration": "12:34",
+    "duration": "",
 
-    "views": "1.2M",
+    "views": "1K",
 
     "year": 2026,
 
     "quality": "HD",
 
-    "category": "asian",
+    "category": "romance",
 
     "tags": [
-      "office",
-      "japanese",
-      "boss"
+      "test",
+      "streaming"
     ],
 
     "description":
-      "A mysterious office relationship slowly becomes dangerous."
+      "Testing MP4 streaming video."
   },
 
   {
     "id": 2,
 
-    "title": "Late Night Apartment",
+    "title": "alien tiktoker 2",
 
-    "slug": "late-night-apartment",
+    "slug": "alien-tiktoker-2",
 
     "thumbnail":
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
+      "/assets/images/alien2.png",
 
     "poster":
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
+      "/assets/images/alien2.png",
 
     "servers": [
       {
         "name": "Server 1",
 
         "url":
-          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
-      },
-
-      {
-        "name": "Backup",
-
-        "url":
-          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
+          "https://cdn.videy.co/cXW2iZ8l1.mp4"
       }
     ],
 
-    "duration": "18:11",
+    "duration": "",
 
-    "views": "980K",
+    "views": "1K",
 
     "year": 2026,
 
-    "quality": "4K",
+    "quality": "HD",
 
     "category": "romance",
 
     "tags": [
-      "apartment",
-      "night",
-      "romance"
+      "test",
+      "streaming"
     ],
 
     "description":
-      "A quiet apartment turns into an unforgettable night."
+      "Testing MP4 streaming video."
   }
 ]

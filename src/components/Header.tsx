@@ -103,12 +103,12 @@ const CloseIcon = () => (
 );
 
 const navItems = [
-  { label: 'Home', href: '/', icon: '🏠' },
-  { label: 'Latest', href: '/latest', icon: '🔥' },
-  { label: 'Categories', href: '/category', icon: '📂' },
-  { label: 'Tags', href: '/tag', icon: '🏷️' },
-  { label: 'Talent', href: '/talent', icon: '⭐' },
-  { label: 'Popular', href: '/popular', icon: '📈' },
+  { label: 'Home', href: '/', icon: '' },
+  { label: 'Latest', href: '/latest', icon: '' },
+  { label: 'Categories', href: '/category', icon: '' },
+  { label: 'Tags', href: '/tag', icon: '' },
+  { label: 'Talent', href: '/talent', icon: '' },
+  { label: 'Popular', href: '/popular', icon: '' },
 
 ];
 function highlightText(text: string, query: string) {
@@ -308,9 +308,11 @@ const filteredResults = searchQuery
           {/* Logo */}
           <div className="flex items-center mr-6 lg:mr-8">
             <Link href="/" className="flex items-center shrink-0">
-              <span className="text-white font-black text-xl tracking-tight">
-                <span style={{ color: '#d50032' }}>CINE</span>STREAM
-              </span>
+              <img
+  src="/assets/images/logo.png"
+  alt="Clitore"
+  className="h-6 w-auto"
+/>
             </Link>
           </div>
 
@@ -385,13 +387,15 @@ const filteredResults = searchQuery
     <div className="flex items-center justify-between px-5 h-16 border-b border-white/10">
 
       <Link
-        href="/"
-        onClick={() => setMobileOpen(false)}
-        className="text-white font-black text-xl tracking-tight"
-      >
-        <span className="text-[#d50032]">CINE</span>STREAM
-      </Link>
-
+  href="/"
+  onClick={() => setMobileOpen(false)}
+>
+  <img
+    src="/assets/images/logo.png"
+    alt="Clitore"
+    className="h-6 w-auto object-contain"
+  />
+</Link>
       <button
         onClick={() => setMobileOpen(false)}
         className="text-white"

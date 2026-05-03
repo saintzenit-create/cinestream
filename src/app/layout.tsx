@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     'Streaming film, serial TV, drama Korea, anime, dan ribuan konten lainnya dalam format HD dengan subtitle Indonesia.',
   icons: {
-    icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
+    icon: [{ url: '/favicon.png', type: 'image/x-icon' }],
   },
 };
 

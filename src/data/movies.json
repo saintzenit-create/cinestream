@@ -1,0 +1,99 @@
+[
+  {
+    "id": 1,
+
+    "title": "Japanese Office Seduction",
+
+    "slug": "japanese-office-seduction",
+
+    "thumbnail":
+      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+
+    "poster":
+      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+
+    "servers": [
+      {
+        "name": "Server 1",
+
+        "url":
+          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
+      },
+
+      {
+        "name": "Backup",
+
+        "url":
+          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
+      }
+    ],
+
+    "duration": "12:34",
+
+    "views": "1.2M",
+
+    "year": 2026,
+
+    "quality": "HD",
+
+    "category": "asian",
+
+    "tags": [
+      "office",
+      "japanese",
+      "boss"
+    ],
+
+    "description":
+      "A mysterious office relationship slowly becomes dangerous."
+  },
+
+  {
+    "id": 2,
+
+    "title": "Late Night Apartment",
+
+    "slug": "late-night-apartment",
+
+    "thumbnail":
+      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
+
+    "poster":
+      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
+
+    "servers": [
+      {
+        "name": "Server 1",
+
+        "url":
+          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
+      },
+
+      {
+        "name": "Backup",
+
+        "url":
+          "https://iframe.mediadelivery.net/embed/225817/80e67f75-6a6b-4a2b-9f7f-0c6d7f5dbf0d"
+      }
+    ],
+
+    "duration": "18:11",
+
+    "views": "980K",
+
+    "year": 2026,
+
+    "quality": "4K",
+
+    "category": "romance",
+
+    "tags": [
+      "apartment",
+      "night",
+      "romance"
+    ],
+
+    "description":
+      "A quiet apartment turns into an unforgettable night."
+  }
+]

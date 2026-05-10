@@ -1,42 +1,40 @@
-import movies from "@/data/movies.json";
+import { supabase } from "./supabase";
 
-export function getAllVideos() {
-  return movies;
+export async function getAllVideos() {
+  const { data, error } = await supabase
+    .from("videos")
+    .select("*");
+
+  console.log("SUPABASE DATA:", data);
+  console.log("SUPABASE ERROR:", error);
+
+  return data || [];
 }
 
-export function getVideoBySlug(slug: string) {
-  return movies.find(
-    (item) => item.slug === slug
-  );
+export async function getVideoBySlug(slug: string) {
+  const { data } = await supabase
+    .from("videos")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  return data;
 }
 
-export function getRelatedVideos(
+export async function getRelatedVideos(
   category: string,
   currentSlug: string
 ) {
-  return movies.filter(
-    (item) =>
-      item.category === category &&
-      item.slug !== currentSlug
-  );
-}
 
-export function searchVideos(query: string) {
+  const firstCategory =
+    category.split(",")[0].trim();
 
-  return movies.filter((item) => {
+  const { data } = await supabase
+    .from("videos")
+    .select("*")
+    .ilike("category", `%${firstCategory}%`)
+    .neq("slug", currentSlug)
+    .limit(12);
 
-    const q = query.toLowerCase();
-
-    return (
-      item.title.toLowerCase().includes(q) ||
-
-      item.category
-        .toLowerCase()
-        .includes(q) ||
-
-      item.tags.some((tag) =>
-        tag.toLowerCase().includes(q)
-      )
-    );
-  });
+  return data || [];
 }

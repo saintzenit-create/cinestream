@@ -16,10 +16,6 @@ export default function VideoCard({ item }: Props) {
   src={item.thumbnail}
   alt={item.title}
   loading="lazy"
-  onError={(e) => {
-    e.currentTarget.src =
-      "/assets/images/no_image.png";
-  }}
   className="w-full h-[260px] object-cover group-hover:scale-110 transition duration-500"
 />
 
@@ -48,7 +44,7 @@ export default function VideoCard({ item }: Props) {
   {/* QUALITY */}
   <span className="absolute top-2 right-2 bg-pink-600 text-white text-xs px-2 py-1 rounded">
 
-    {item.quality}
+    {item.category?.split(',')[0]}
 
   </span>
 

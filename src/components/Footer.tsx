@@ -8,12 +8,9 @@ const DiscordIcon = () => (
 );
 
 const browseLinks = [
-  { label: 'Browse Movies', href: '/movie' },
-  { label: 'Browse TV Series', href: '/series' },
-  { label: 'Browse by Genre', href: '/genre' },
-  { label: 'Browse by Country', href: '/country' },
-  { label: 'Browse by Year', href: '/year' },
-  { label: 'Browse by Network', href: '/network' },
+  { label: 'Trending Videos', href: '/' },
+{ label: 'Latest Uploads', href: '/' },
+{ label: 'New Updates', href: '/' },
 ];
 
 export default function Footer() {
@@ -23,14 +20,14 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 pb-6">
         <nav aria-label="Browse categories" className="flex flex-wrap gap-2 sm:gap-3">
           {browseLinks?.map((link) => (
-            <Link
-              key={link?.href}
-              href={link?.href}
-              className="btn-glass-pill"
-            >
-              {link?.label}
-            </Link>
-          ))}
+  <Link
+    key={`${link?.label}-${link?.href}`}
+    href={link?.href}
+    className="btn-glass-pill"
+  >
+    {link?.label}
+  </Link>
+))}
         </nav>
       </div>
       {/* Divider */}
@@ -88,7 +85,7 @@ export default function Footer() {
           <Link href="/terms" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">Syarat & Ketentuan</Link>
           <Link href="/dmca" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">DMCA</Link>
           <Link href="/contact" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">Kontak</Link>
-          <span className="text-xs text-[#707070]">© 2025 CineStream</span>
+          <span className="text-xs text-[#707070]">© 2025 Clitore</span>
         </div>
       </div>
     </footer>

@@ -1,146 +1,160 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { MediaItem } from '@/data/content';
 
 interface HeroSectionProps {
-  item: MediaItem;
+  items: any[];
 }
 
-const PlayIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M8 5v14l11-7z" />
-  </svg>
-);
+export default function HeroSection({
+  items,
+}: HeroSectionProps) {
 
-const InfoIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 16v-4M12 8h.01" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+  const [current, setCurrent] = useState(0);
 
-const StarIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#fcbb00">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-  </svg>
-);
+  useEffect(() => {
 
-export default function HeroSection({ item }: HeroSectionProps) {
-  const [imgError, setImgError] = useState(false);
+    if (!items?.length) return;
+
+    const interval = setInterval(() => {
+
+      setCurrent((prev) =>
+        prev === items.length - 1
+          ? 0
+          : prev + 1
+      );
+
+    }, 5000);
+
+    return () => clearInterval(interval);
+
+  }, [items]);
+
+  if (!items?.length) return null;
+
+  const item = items[current];
 
   return (
-    <section className="relative w-full min-h-[92svh] bg-black overflow-hidden">
-      {/* BG */}
-      {!imgError ? (
-       <Image
-  src={
-    item.poster ||
-    item.thumbnail ||
-    "/assets/images/no_image.png"
-  }
-  alt={item.title}
-  fill
-  priority
-  sizes="100vw"
-  className="object-cover object-center scale-105"
-  onError={() => setImgError(true)}
-/>
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#180008] via-black to-black" />
-      )}
+    <section className="relative h-[90vh] overflow-hidden bg-black">
 
-      {/* overlays */}
-      <div className="absolute inset-0 bg-black/25" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/65 to-black/15" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(213,0,50,.20),transparent_35%)]" />
+      {/* BG IMAGE */}
+      <div className="absolute inset-0">
 
-      {/* content */}
-      <div className="relative z-10 flex items-end min-h-[92svh] px-4 sm:px-6 lg:px-12 pb-14 sm:pb-16">
-        <div className="max-w-xl lg:max-w-2xl animate-[fadeIn_.8s_ease]">
+        <Image
+          src={
+            item.poster ||
+            item.thumbnail ||
+            "/assets/images/no_image.png"
+          }
+          alt={item.title}
+          fill
+          priority
+          className="object-cover object-center scale-105"
+        />
 
-          {/* badge */}
-          <div className="mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-xs font-semibold tracking-wide uppercase">
-              <span className="w-2 h-2 rounded-full bg-[#d50032]" />
-              {item.type === 'movie' ? 'Featured Movie' : 'Featured Series'}
-            </span>
-          </div>
+      </div>
 
-          {/* title */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black leading-[0.95] tracking-tight text-white drop-shadow-2xl">
+      {/* OVERLAYS */}
+      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 h-full flex items-end">
+
+        <div className="max-w-7xl px-6 pb-24">
+
+          <span className="bg-pink-600 text-sm px-4 py-2 rounded-full font-semibold">
+            FEATURED VIDEO
+          </span>
+
+          <h1 className="text-5xl md:text-7xl font-black mt-5 max-w-3xl leading-tight">
             {item.title}
           </h1>
 
-          {/* meta */}
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:text-base">
-            <div className="flex items-center gap-1">
-              <StarIcon />
-              <span className="font-semibold text-[#fcbb00]">
-                {item.rating ? item.rating.toFixed(1) : 'N/A'}
-              </span>
-            </div>
+          <div className="flex gap-3 text-zinc-300 mt-4 text-sm">
 
-            <span className="text-white/45">•</span>
-            <span className="text-white/80">{item.year}</span>
+            <span>{item.year}</span>
 
-            {item.episodes && (
-              <>
-                <span className="text-white/45">•</span>
-                <span className="text-white/80">{item.episodes} Episodes</span>
-              </>
-            )}
+            <span>•</span>
 
-            {item.duration && (
-              <>
-                <span className="text-white/45">•</span>
-                <span className="text-white/80">{item.duration}</span>
-              </>
-            )}
+            <span>{item.quality}</span>
+
+            <span>•</span>
+
+            <span>{item.views} views</span>
+
           </div>
 
-          {/* genre */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            {item.genre.slice(0, 4).map((genre) => (
-              <span
-                key={genre}
-                className="px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-white/80"
-              >
-                {genre}
-              </span>
+          <p className="text-zinc-300 mt-5 max-w-2xl leading-relaxed line-clamp-3">
+            {item.description}
+          </p>
+
+          {/* BUTTON */}
+          <div className="flex gap-4 mt-8">
+
+            <Link
+              href={`/watch/${item.slug}`}
+              className="bg-pink-600 hover:bg-pink-700 transition px-8 py-4 rounded-xl font-bold text-lg"
+            >
+              ▶ Watch Now
+            </Link>
+
+          </div>
+
+          {/* DOTS */}
+          <div className="flex gap-2 mt-10">
+
+            {items.map((_: any, index: number) => (
+
+              <button
+                key={index}
+                onClick={() => setCurrent(index)}
+                className={`h-2 rounded-full transition-all ${
+                  current === index
+                    ? 'bg-pink-600 w-10'
+                    : 'bg-white/40 w-2'
+                }`}
+              />
+
             ))}
+
           </div>
 
-          {/* desc */}
-          {item.description && (
-            <p className="mt-5 text-sm sm:text-base lg:text-lg text-white/75 leading-relaxed max-w-2xl line-clamp-3">
-              {item.description}
-            </p>
-          )}
-
-          {/* buttons */}
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              href={`/${item.type}/${item.slug}`}
-              className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-xl bg-[#d50032] hover:bg-[#ef0038] transition font-semibold text-sm sm:text-base shadow-[0_10px_35px_rgba(213,0,50,.35)]"
-            >
-              <PlayIcon />
-              Tonton Sekarang
-            </Link>
-
-            <Link
-              href={`/${item.type}/${item.slug}`}
-              className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md transition font-medium text-sm sm:text-base"
-            >
-              <InfoIcon />
-              Info
-            </Link>
-          </div>
         </div>
+
       </div>
+
+      {/* PREV */}
+      <button
+        onClick={() =>
+          setCurrent(
+            current === 0
+              ? items.length - 1
+              : current - 1
+          )
+        }
+        className="absolute left-5 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-pink-600 transition w-12 h-12 rounded-full"
+      >
+        ←
+      </button>
+
+      {/* NEXT */}
+      <button
+        onClick={() =>
+          setCurrent(
+            current === items.length - 1
+              ? 0
+              : current + 1
+          )
+        }
+        className="absolute right-5 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-pink-600 transition w-12 h-12 rounded-full"
+      >
+        →
+      </button>
+
     </section>
   );
 }

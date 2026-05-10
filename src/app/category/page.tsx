@@ -1,33 +1,42 @@
 import Link from "next/link";
-import { getAllVideos } from "@/lib/data";
+import { getAllVideos } from "@/lib/videos";
 
-export default function CategoryPage() {
+export default async function CategoryPage() {
 
-  const videos = getAllVideos();
+  const videos = await getAllVideos();
+
+  const safeVideos = Array.isArray(videos)
+    ? videos
+    : [];
 
   const categories = [
-    ...new Set(
-      videos.map((item) => item.category)
-    ),
-  ];
-
+  ...new Set(
+    safeVideos
+      .flatMap((item: any) =>
+        String(item.category || "")
+          .split(",")
+          .map((cat) => cat.trim())
+      )
+      .filter(Boolean)
+  ),
+];
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white px-4 py-24">
 
-      <section className="max-w-7xl mx-auto px-4 py-24">
+      <div className="max-w-7xl mx-auto">
 
-        <h1 className="text-5xl font-black mb-10">
+        <h1 className="text-4xl font-black mb-10">
           Categories
         </h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5">
+        <div className="flex flex-wrap gap-4">
 
-          {categories.map((category) => (
+          {categories.map((category: any) => (
 
             <Link
               key={category}
               href={`/category/${category}`}
-              className="bg-zinc-900 hover:bg-pink-600 transition rounded-2xl p-8 flex items-center justify-center text-center font-bold text-lg"
+              className="px-6 py-4 rounded-2xl bg-zinc-900 hover:bg-pink-600 transition font-semibold"
             >
               {category}
             </Link>
@@ -36,7 +45,7 @@ export default function CategoryPage() {
 
         </div>
 
-      </section>
+      </div>
 
     </main>
   );

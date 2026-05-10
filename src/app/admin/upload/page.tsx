@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 
+
 export default function AdminUploadPage() {
 
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,8 @@ export default function AdminUploadPage() {
     featured: false,
     trending: false,
     player_type: 'mp4',
-
+    series_title: '',
+    episode_number: 0,
   });
   function generateSlug(text: string) {
   return text
@@ -67,6 +69,8 @@ export default function AdminUploadPage() {
       thumbnail: data.url,
       poster: data.url,
       talent_image: data.url,
+      series_title: '',
+      episode_number: 0,
     });
 
   }
@@ -140,18 +144,38 @@ const paginatedVideos =
 
   if (editingId) {
 
-    const result = await supabase
-      .from('videos')
-      .update(form)
-      .eq('id', editingId);
+    const submitData = {
+  ...form,
+
+  episode_number:
+  !form.episode_number
+    ? null
+    : Number(form.episode_number),
+};
+
+const result = await supabase
+  .from('videos')
+  .update(submitData)
+  .eq('id', editingId);
 
     error = result.error;
 
   } else {
 
-    const result = await supabase
-      .from('videos')
-      .insert([form]);
+    const submitData = {
+  ...form,
+
+  episode_number:
+
+    !form.episode_number ||
+    form.episode_number === 0
+      ? null
+      : Number(form.episode_number),
+};
+
+const result = await supabase
+  .from('videos')
+  .insert([submitData]);
 
     error = result.error;
   }
@@ -192,6 +216,8 @@ const paginatedVideos =
   featured: false,
   trending: false,
   player_type: 'mp4',
+  series_title: '',
+      episode_number:0,
 });
 }
 async function handleDelete(id: number) {
@@ -408,7 +434,32 @@ async function handleDelete(id: number) {
             }
             className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
           />
+          <input
+  type="text"
+  placeholder="Series Title"
+  value={form.series_title}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      series_title: e.target.value,
+    })
+  }
+  className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
+/>
 
+<input
+  type="number"
+  placeholder="Episode Number"
+  value={form.episode_number || ''}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      episode_number:
+        Number(e.target.value),
+    })
+  }
+  className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
+/>
           <input
             type="text"
             placeholder="Talent Image"
@@ -561,6 +612,11 @@ async function handleDelete(id: number) {
   video.trending || false,
     player_type:
   video.player_type || 'mp4',
+  series_title:
+  video.series_title || '',
+
+episode_number:
+  video.episode_number || 0,
 });
 
     setPreview(

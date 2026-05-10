@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { useEffect } from 'react';
-
+import { supabase } from '@/lib/supabase';
 type Props = {
   src: string;
   poster?: string;
   playerType?: string;
   slug?: string;
+  downloadUrl?: string;
 };
 
 export default function VideoPlayer({
@@ -15,17 +16,36 @@ export default function VideoPlayer({
   poster,
   playerType = 'mp4',
   slug,
+  downloadUrl,
 }: Props) {
 
-  const [play, setPlay] = useState(false);
-  useEffect(() => {
+  const [play, setPlay] =
+  useState(false);
+
+const [user, setUser] =
+  useState<any>(null);
+
+useEffect(() => {
+
+  supabase.auth
+    .getUser()
+    .then(({ data }) => {
+
+      setUser(data.user);
+
+    });
+
+}, []);
+
+useEffect(() => {
 
   if (!slug) return;
 
   fetch('/api/view', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type':
+        'application/json',
     },
     body: JSON.stringify({
       slug,
@@ -35,6 +55,7 @@ export default function VideoPlayer({
 }, [slug]);
 
   return (
+  <>
     <div className="aspect-video rounded-2xl overflow-hidden bg-zinc-900 relative">
 
       {!play && (
@@ -76,18 +97,58 @@ export default function VideoPlayer({
 
         ) : (
 
-          <video
-            src={src}
-            controls
-            autoPlay
-            poster={poster}
-            className="w-full h-full object-contain bg-black"
-          />
+          <div className="relative w-full h-full">
 
-        )
+  <video
+    src={src}
+    controls
+    controlsList="nodownload"
+    disablePictureInPicture
+    onContextMenu={(e) =>
+      e.preventDefault()
+    }
+    autoPlay
+    poster={poster}
+    className="w-full h-full object-contain bg-black"
+  />
+
+  
+
+</div>
+
+
+                )
 
       )}
 
     </div>
+
+    <div className="mt-4 flex justify-end">
+
+      {user ? (
+
+        <a
+          href={downloadUrl || src}
+          download
+          className="px-6 h-12 rounded-2xl bg-pink-600 hover:bg-pink-700 flex items-center justify-center font-bold text-sm"
+        >
+          Download Video
+        </a>
+
+      ) : (
+
+        <a
+          href="/auth/login"
+          className="px-6 h-12 rounded-2xl bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center font-bold text-sm"
+        >
+          Login to Download
+        </a>
+
+      )}
+
+    </div>
+
+  </>
+    
   );
 }

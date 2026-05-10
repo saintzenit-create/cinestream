@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 const SearchIcon = () => (
   <svg
@@ -101,6 +102,8 @@ export default function Header() {
   const [allItems, setAllItems] = useState<any[]>([]);
 
   const searchRef = useRef<HTMLInputElement>(null);
+  const [user, setUser] =
+  useState<any>(null);
 
   useEffect(() => {
     fetch('/api/videos')
@@ -142,7 +145,16 @@ export default function Header() {
       document.body.style.overflow = '';
     };
   }, [mobileOpen]);
+useEffect(() => {
 
+  supabase.auth
+    .getUser()
+    .then(({ data }) => {
+
+      setUser(data.user);
+    });
+
+}, []);
   const filteredResults = searchQuery
     ? allItems
         .filter((item: any) =>
@@ -261,7 +273,7 @@ export default function Header() {
           </div>
         </div>
       )}
-
+        
       {/* HEADER */}
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -324,29 +336,81 @@ export default function Header() {
                 <div className="flex-1 md:hidden" />
 
                 {/* ACTIONS */}
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  <button
-                    onClick={() =>
-                      setSearchOpen(true)
-                    }
-                    className="p-2.5 text-white hover:bg-white/10 transition rounded-full"
-                  >
-                    <SearchIcon />
-                  </button>
+<div className="flex items-center gap-1 sm:gap-1.5">
 
-                  <button
-                    onClick={() =>
-                      setMobileOpen(!mobileOpen)
-                    }
-                    className="md:hidden flex items-center p-1.5 text-white hover:bg-white/10 rounded-full transition"
-                  >
-                    {mobileOpen ? (
-                      <CloseIcon />
-                    ) : (
-                      <MenuIcon />
-                    )}
-                  </button>
-                </div>
+  {user ? (
+
+    <div className="hidden sm:flex items-center gap-3 mr-2">
+
+      <div className="text-sm font-semibold text-white">
+
+        {
+          user.user_metadata
+            ?.username
+        }
+
+      </div>
+
+      <button
+        onClick={async () => {
+
+          await supabase.auth
+            .signOut();
+
+          location.reload();
+        }}
+        className="px-4 py-2 rounded-full bg-zinc-800 hover:bg-zinc-700 text-sm"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  ) : (
+
+  <div className="hidden sm:flex items-center gap-3 mr-2">
+
+    <Link
+      href="/auth/login"
+      className="px-5 py-2 rounded-full bg-zinc-900 hover:bg-zinc-800 text-sm font-bold text-white"
+    >
+      Login
+    </Link>
+
+    <Link
+      href="/auth/register"
+      className="px-5 py-2 rounded-full bg-pink-600 hover:bg-pink-700 text-sm font-bold text-white"
+    >
+      Register
+    </Link>
+
+  </div>
+
+)}
+
+<button
+  onClick={() =>
+    setSearchOpen(true)
+  }
+  className="p-2.5 text-white hover:bg-white/10 transition rounded-full"
+>
+  <SearchIcon />
+</button>
+
+<button
+  onClick={() =>
+    setMobileOpen(!mobileOpen)
+  }
+  className="md:hidden flex items-center p-1.5 text-white hover:bg-white/10 rounded-full transition"
+>
+  {mobileOpen ? (
+    <CloseIcon />
+  ) : (
+    <MenuIcon />
+  )}
+</button>
+
+</div>
               </div>
             </div>
           </div>
@@ -381,25 +445,85 @@ export default function Header() {
           </div>
 
           <div className="p-5">
-            <div className="space-y-2">
-              {navItems.map((item, idx) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() =>
-                    setMobileOpen(false)
-                  }
-                  className={`flex items-center gap-3 px-4 py-4 rounded-full text-base transition ${
-                    idx === 0
-                      ? 'bg-[#d50032]/20 text-[#ff2d5e] font-bold'
-                      : 'text-white/70 hover:bg-white/5 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+
+  <div className="mb-6">
+
+    {user ? (
+
+      <div className="bg-zinc-900 rounded-2xl p-4 flex items-center justify-between">
+
+        <div>
+
+          <div className="text-sm text-zinc-400">
+            Logged in as
           </div>
+
+          <div className="font-bold text-white mt-1">
+
+            {
+              user.user_metadata
+                ?.username
+            }
+
+          </div>
+
+        </div>
+
+        <button
+          onClick={async () => {
+
+            await supabase.auth
+              .signOut();
+
+            location.reload();
+          }}
+          className="px-4 py-2 rounded-xl bg-red-600 text-sm font-bold"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    ) : (
+
+      <Link
+          href="/auth/login"
+        onClick={() =>
+          setMobileOpen(false)
+        }
+        className="flex items-center justify-center h-14 rounded-2xl bg-pink-600 font-bold text-white"
+      >
+        Login / Signup
+      </Link>
+
+    )}
+
+  </div>
+
+  <div className="space-y-2">
+
+    {navItems.map((item, idx) => (
+
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={() =>
+          setMobileOpen(false)
+        }
+        className={`flex items-center gap-3 px-4 py-4 rounded-full text-base transition ${
+          idx === 0
+            ? 'bg-[#d50032]/20 text-[#ff2d5e] font-bold'
+            : 'text-white/70 hover:bg-white/5 hover:text-white'
+        }`}
+      >
+        {item.label}
+      </Link>
+
+    ))}
+
+  </div>
+
+</div>
         </div>
       )}
     </>

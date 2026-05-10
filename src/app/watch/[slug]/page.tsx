@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import VideoPlayer from "@/components/VideoPlayer";
 import RealtimeViews from '@/components/RealtimeViews';
+import Comments from '@/components/Comments';
 import {
   getVideoBySlug,
   getRelatedVideos,
@@ -45,6 +46,7 @@ export default async function WatchPage({
   poster={video.poster}
   playerType={video.player_type}
   slug={video.slug}
+  downloadUrl={video.video_url}
 />
 
 </section>
@@ -71,7 +73,7 @@ export default async function WatchPage({
               {video.description}
             </p>
 
-            {/* TAGS */}
+            
             {/* TAGS */}
 <div className="flex flex-wrap gap-2">
 
@@ -88,6 +90,7 @@ export default async function WatchPage({
   ))}
 
 </div>
+<Comments slug={video.slug} />
 
           </section>
 

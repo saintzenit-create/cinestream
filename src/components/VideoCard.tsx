@@ -13,7 +13,10 @@ export default function VideoCard({ item }: Props) {
       <div className="relative overflow-hidden rounded-2xl">
 
   <img
-  src={item.thumbnail}
+  src={
+    item.thumbnail ||
+    '/assets/images/no_image.png'
+  }
   alt={item.title}
   loading="lazy"
   className="w-full h-[260px] object-cover group-hover:scale-110 transition duration-500"

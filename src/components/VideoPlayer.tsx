@@ -39,20 +39,26 @@ useEffect(() => {
 
 useEffect(() => {
 
-  if (!slug) return;
+  async function sendView() {
 
-  fetch('/api/view', {
-    method: 'POST',
-    headers: {
-      'Content-Type':
-        'application/json',
-    },
-    body: JSON.stringify({
-      slug,
-    }),
-  });
+    if (!slug) return;
 
-}, [slug]);
+    await fetch('/api/view', {
+      method: 'POST',
+      headers: {
+        'Content-Type':
+          'application/json',
+      },
+      body: JSON.stringify({
+        slug,
+      }),
+    });
+
+  }
+
+  sendView();
+
+}, []);
 
   return (
   <>

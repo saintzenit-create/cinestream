@@ -11,13 +11,92 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export const metadata: Metadata = {
-  title: 'clitore — Nonton Film & Series Subtitle Indonesia',
-  description:
-    'Streaming film, serial TV, drama Korea, anime, dan ribuan konten lainnya dalam format HD dengan subtitle Indonesia.',
-  icons: {
-    icon: [{ url: '/favicon.png', type: 'image/x-icon' }],
+export const metadata = {
+
+  metadataBase: new URL(
+    'https://clitore.com'
+  ),
+  verification: {
+  google:
+    'yL5iqg8APjc3v0f5NHWXGcC2WGM6D4E1KlGQeRbPPNw',
+},
+    
+  title: {
+    default:
+      'Clitore - Streaming Premium',
+    template:
+      '%s | Clitore',
   },
+
+  description:
+    'Streaming film, series, anime dan video premium kualitas HD subtitle Indonesia.',
+
+  keywords: [
+    'scandal',
+    'bokep indonesia',
+    'update',
+    'sma',
+    'viral',
+    'watch online',
+  ],
+
+  icons: {
+    icon: '/favicon.png',
+  },
+
+  openGraph: {
+
+    title:
+      'Clitore Streaming',
+
+    description:
+      'Bokep Terbaru, Viral dan Update tiap hari.',
+
+    url:
+      'https://clitore.com',
+
+    siteName:
+      'Clitore',
+
+    images: [
+      {
+        url:
+          '/assets/images/og.jpg',
+
+        width: 1200,
+        height: 630,
+      },
+    ],
+
+    locale:
+      'id_ID',
+
+    type:
+      'website',
+  },
+
+  twitter: {
+
+    card:
+      'summary_large_image',
+
+    title:
+      'Clitore Streaming',
+
+    description:
+      'Watch premium streaming videos online.',
+
+    images: [
+      '/assets/images/og.jpg',
+    ],
+  },
+
+  alternates: {
+
+    canonical:
+      'https://clitore.com',
+  },
+
 };
 
 export default function RootLayout({

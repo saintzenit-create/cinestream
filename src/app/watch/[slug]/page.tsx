@@ -15,9 +15,10 @@ type Props = {
 };
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
+}: Props) {
 
-  const { slug } = await params;
+  const { slug } =
+    await params;
 
   const video =
     await getVideoBySlug(slug);
@@ -25,24 +26,50 @@ export async function generateMetadata({
   if (!video) {
 
     return {
-      title: 'Not Found',
+      title: 'Video Not Found',
     };
 
   }
 
   return {
-    title:
-      `${video.title} (${video.year})`,
+
+    title: video.title,
 
     description:
       video.description,
 
+    keywords:
+      video.category,
+
     alternates: {
       canonical:
-        `https://domainkamu.com/watch/${video.slug}`,
+        `https://clitore.com/watch/${video.slug}`,
     },
 
     openGraph: {
+
+      title: video.title,
+
+      description:
+        video.description,
+
+      url:
+        `https://clitore.com/watch/${video.slug}`,
+
+      images: [
+        {
+          url:
+            video.thumbnail,
+        },
+      ],
+
+      type: 'video.other',
+    },
+
+    twitter: {
+      card:
+        'summary_large_image',
+
       title:
         video.title,
 
@@ -50,9 +77,10 @@ export async function generateMetadata({
         video.description,
 
       images: [
-        video.poster,
+        video.thumbnail,
       ],
     },
+
   };
 
 }

@@ -1,35 +1,30 @@
-import { MetadataRoute } from 'next';
-import { supabase } from '@/lib/supabase';
+import { getAllVideos }
+from '@/lib/data';
 
-export default async function sitemap():
-Promise<MetadataRoute.Sitemap> {
+export default async function sitemap() {
 
-  const baseUrl =
-    'https://clitore.com';
+  const videos =
+    await getAllVideos();
 
-  const { data: videos } =
-    await supabase
-      .from('videos')
-      .select('slug, updated_at');
-
-  const videoUrls =
-    videos?.map((video) => ({
+  const urls =
+    videos.map((video: any) => ({
       url:
-        `${baseUrl}/watch/${video.slug}`,
-
+        `https://clitore.com/watch/${video.slug}`,
       lastModified:
-        video.updated_at ||
         new Date(),
-    })) || [];
+    }));
 
   return [
+
     {
-      url: baseUrl,
+      url:
+        'https://clitore.com',
       lastModified:
         new Date(),
     },
 
-    ...videoUrls,
+    ...urls,
+
   ];
 
 }

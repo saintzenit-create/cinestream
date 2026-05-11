@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import VideoPlayer from "@/components/VideoPlayer";
 import RealtimeViews from '@/components/RealtimeViews';
 import Comments from '@/components/Comments';
+import { Metadata } from 'next';
 import {
   getVideoBySlug,
   getRelatedVideos,
@@ -12,7 +13,49 @@ type Props = {
     slug: string;
   }>;
 };
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
 
+  const { slug } = await params;
+
+  const video =
+    await getVideoBySlug(slug);
+
+  if (!video) {
+
+    return {
+      title: 'Not Found',
+    };
+
+  }
+
+  return {
+    title:
+      `${video.title} (${video.year})`,
+
+    description:
+      video.description,
+
+    alternates: {
+      canonical:
+        `https://domainkamu.com/watch/${video.slug}`,
+    },
+
+    openGraph: {
+      title:
+        video.title,
+
+      description:
+        video.description,
+
+      images: [
+        video.poster,
+      ],
+    },
+  };
+
+}
 export default async function WatchPage({
   params,
 }: Props) {

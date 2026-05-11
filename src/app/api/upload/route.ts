@@ -1,36 +1,84 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
-export async function POST(req: Request) {
+import { createClient }
+from '@supabase/supabase-js';
 
-  const data = await req.formData();
+const supabase = createClient(
+  process.env
+    .NEXT_PUBLIC_SUPABASE_URL!,
+  process.env
+    .SUPABASE_SERVICE_ROLE_KEY!
+);
 
-  const file =
-    data.get('file') as File;
+export async function POST(
+  req: Request
+) {
 
-  if (!file) {
+  try {
+
+    const data =
+      await req.formData();
+
+    const file =
+      data.get('file') as File;
+
+    if (!file) {
+
+      return NextResponse.json(
+        {
+          error: 'No file',
+        },
+        { status: 400 }
+      );
+
+    }
+
+    const bytes =
+      await file.arrayBuffer();
+
+    const buffer =
+      Buffer.from(bytes);
+
+    const fileName =
+      `${Date.now()}-${file.name}`;
+
+    const { error } =
+      await supabase.storage
+        .from('images')
+        .upload(fileName, buffer, {
+          contentType: file.type,
+        });
+
+    if (error) {
+
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        { status: 500 }
+      );
+
+    }
+
+    const { data: publicUrl } =
+      supabase.storage
+        .from('images')
+        .getPublicUrl(fileName);
+
     return NextResponse.json({
-      error: 'No file',
+      url:
+        publicUrl.publicUrl,
     });
+
+  } catch (err: any) {
+
+    return NextResponse.json(
+      {
+        error: err.message,
+      },
+      { status: 500 }
+    );
+
   }
 
-  const bytes = await file.arrayBuffer();
-
-  const buffer = Buffer.from(bytes);
-
-  const fileName =
-    Date.now() + '-' + file.name;
-
-  const uploadPath = path.join(
-    process.cwd(),
-    'public/assets/images',
-    fileName
-  );
-
-  fs.writeFileSync(uploadPath, buffer);
-
-  return NextResponse.json({
-    url: `/assets/images/${fileName}`,
-  });
 }

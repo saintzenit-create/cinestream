@@ -10,58 +10,60 @@ export default function VideoCard({ item }: Props) {
       href={`/watch/${item.slug}`}
       className="group block"
     >
-      <div className="relative overflow-hidden rounded-2xl">
+      <div className="relative overflow-hidden rounded-xl bg-zinc-900">
 
-  <img
-  src={
-    item.thumbnail ||
-    '/assets/images/no_image.png'
-  }
-  alt={item.title}
-  loading="lazy"
-  className="w-full h-[260px] object-cover group-hover:scale-110 transition duration-500"
-/>
+        <img
+          src={
+            item.thumbnail ||
+            "/assets/images/no_image.png"
+          }
+          alt={item.title}
+          loading="lazy"
+          className="w-full aspect-[2/3] object-cover group-hover:scale-105 transition duration-300"
+        />
 
-  {/* DARK OVERLAY */}
-  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/50 transition duration-300" />
+        
 
-  {/* PLAY BUTTON */}
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+        {/* CATEGORY */}
+        <span className="absolute top-2 right-2 bg-pink-600 text-white text-[10px] px-2 py-1 rounded-md font-medium">
 
-    <div className="w-16 h-16 rounded-full bg-pink-600 flex items-center justify-center text-2xl shadow-2xl">
-      ▶
-    </div>
+          {item.category?.split(",")[0]}
 
-  </div>
+        </span>
 
-  {/* BOTTOM GRADIENT */}
-  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+        {/* BOTTOM INFO */}
+        <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/90 to-transparent">
 
-  {/* DURATION */}
-  <span className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+          <div className="flex items-center justify-between text-[11px] text-zinc-300">
 
-    {item.duration}
+          
 
-  </span>
+            <span>
+              👁 {item.views || 0}
+            </span>
 
-  {/* QUALITY */}
-  <span className="absolute top-2 right-2 bg-pink-600 text-white text-xs px-2 py-1 rounded">
+          </div>
 
-    {item.category?.split(',')[0]}
+        </div>
 
-  </span>
+      </div>
 
-</div>
+      <div className="mt-2">
 
-      <div className="mt-3">
-        <h3 className="font-semibold line-clamp-2">
+        <h3 className="text-sm md:text-base font-semibold leading-tight line-clamp-2">
+
           {item.title}
+
         </h3>
 
-        <p className="text-sm text-zinc-400 mt-1">
-          {item.views} views
+        <p className="text-xs text-zinc-400 mt-1">
+
+          {item.year || "2025"}
+
         </p>
+
       </div>
+
     </Link>
   );
 }

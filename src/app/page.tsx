@@ -29,13 +29,13 @@ export default async function HomePage() {
       <HeroSection items={featuredVideos} />
 
       {/* TRENDING */}
-      <section className="max-w-7xl mx-auto px-4 py-14">
+      <section className="max-w-7xl mx-auto px-3 md:px-4 py-8 md:py-14">
 
-        <h2 className="text-3xl font-bold mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8">
           Trending Now
         </h2>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5">
 
           {videos
   .filter((item: any) => item.trending)
@@ -65,7 +65,7 @@ export default async function HomePage() {
 
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5">
 
           {[...videos]
             .reverse()

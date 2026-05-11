@@ -15,8 +15,18 @@ export const imageHosts = [
     protocol: 'https',
     hostname: 'img.rocket.new',
   },
+
+  // hostname benar
   {
     protocol: 'https',
-    hostname: 'xzloqvqsfjivsffzpjh.supabase.co',
+    hostname:
+      'xzloqvqsfjivsffzpjh.supabase.co',
+  },
+
+  // hostname typo lama
+  {
+    protocol: 'https',
+    hostname:
+      'xzloqvqsfgijvsffzpjh.supabase.co',
   },
 ];

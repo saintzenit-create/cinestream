@@ -70,7 +70,7 @@ export default function HeroSection({
             FEATURED VIDEO
           </span>
 
-          <h1 className="text-5xl md:text-7xl font-black mt-5 max-w-3xl leading-tight">
+          <h1 className="text-4xl md:text-4xl font-black mt-5 max-w-3xl leading-tight">
             {item.title}
           </h1>
 

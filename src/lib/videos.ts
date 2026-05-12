@@ -1,16 +1,17 @@
 import { supabase } from "@/lib/supabase";
 
 export async function getAllVideos() {
-  const response = await supabase
+
+  const { data, error } = await supabase
     .from("videos")
-    .select("*");
+    .select("*")
+    .order("id", { ascending: false })
+    .range(0, 999);
 
-  console.log("SUPABASE RESPONSE:");
-  console.log(JSON.stringify(response, null, 2));
-
-  if (response.error) {
+  if (error) {
+    console.log(error);
     return [];
   }
 
-  return response.data || [];
+  return data || [];
 }

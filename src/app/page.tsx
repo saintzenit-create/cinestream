@@ -3,6 +3,9 @@ import VideoCard from "@/components/VideoCard";
 import HeroSection from "@/components/HeroSection";
 import LatestVideos from "@/components/LatestVideos";
 
+export const dynamic =
+  "force-dynamic";
+
 export default async function HomePage() {
 
   const videos = await getAllVideos();

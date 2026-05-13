@@ -1,3 +1,4 @@
+import Script from "next/script";
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
@@ -106,24 +107,62 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+  <head>
 
-      <body className="bg-black text-white">
-        <Header />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
 
-        <main className="min-h-screen pt-16">
-          {children}
-        </main>
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossOrigin="anonymous"
+    />
 
-        <Footer />
-      </body>
-    </html>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-6T8MH2QB41"
+      strategy="afterInteractive"
+    />
+
+    <Script
+      id="google-analytics"
+      strategy="afterInteractive"
+    >
+
+      {`
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+          dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-6T8MH2QB41');
+      `}
+
+    </Script>
+
+  </head>
+
+  <body className="bg-black text-white">
+
+    <Header />
+
+    <main className="min-h-screen pt-16">
+      {children}
+    </main>
+
+    <Footer />
+
+  </body>
+
+</html>
   );
 }

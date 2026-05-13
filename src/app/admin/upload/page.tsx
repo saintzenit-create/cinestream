@@ -36,6 +36,10 @@ export default function AdminUploadPage() {
     player_type: 'mp4',
     series_title: '',
     episode_number: 0,
+
+status: 'published',
+
+publish_at: '',
   });
   function generateSlug(text: string) {
   return text
@@ -71,6 +75,10 @@ export default function AdminUploadPage() {
       talent_image: data.url,
       series_title: '',
       episode_number: 0,
+
+status: 'published',
+
+publish_at: '',
     });
 
   }
@@ -217,7 +225,11 @@ const result = await supabase
   trending: false,
   player_type: 'mp4',
   series_title: '',
-      episode_number:0,
+      episode_number: 0,
+
+status: 'published',
+
+publish_at: '',
 });
 }
 async function handleDelete(id: number) {
@@ -508,7 +520,46 @@ async function handleDelete(id: number) {
   <span className="text-sm font-medium">
     Trending Now
   </span>
+<select
+  value={form.status}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      status: e.target.value,
+    })
+  }
+  className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
+>
 
+  <option value="published">
+    Publish Now
+  </option>
+
+  <option value="draft">
+    Save as Draft
+  </option>
+
+  <option value="scheduled">
+    Schedule Post
+  </option>
+
+</select>
+
+{form.status === "scheduled" && (
+
+  <input
+    type="datetime-local"
+    value={form.publish_at}
+    onChange={(e) =>
+      setForm({
+        ...form,
+        publish_at: e.target.value,
+      })
+    }
+    className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
+  />
+
+)}
 </label>
           <button
   type="submit"
@@ -585,6 +636,7 @@ async function handleDelete(id: number) {
           </p>
 
         </div>
+        
         <button
   type="button"
   onClick={() => {
@@ -617,6 +669,11 @@ async function handleDelete(id: number) {
 
 episode_number:
   video.episode_number || 0,
+  status:
+  video.status || 'published',
+
+publish_at:
+  video.publish_at || '',
 });
 
     setPreview(

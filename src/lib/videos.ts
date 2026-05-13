@@ -2,16 +2,29 @@ import { supabase } from "@/lib/supabase";
 
 export async function getAllVideos() {
 
-  const { data, error } = await supabase
-    .from("videos")
-    .select("*")
-    .order("id", { ascending: false })
-    .range(0, 999);
+  const now =
+    new Date().toISOString();
 
-  if (error) {
-    console.log(error);
+  const response =
+    await supabase
+      .from("videos")
+      .select("*")
+      .eq("status", "published")
+      .or(
+        `publish_at.is.null,publish_at.lte.${now}`
+      )
+      .order("id", {
+        ascending: false,
+      });
+
+  if (response.error) {
+
+    console.log(response.error);
+
     return [];
+
   }
 
-  return data || [];
+  return response.data || [];
+
 }

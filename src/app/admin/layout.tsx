@@ -101,6 +101,10 @@ export default function AdminLayout({
               href: "/admin/published",
             },
             {
+  name: "Scheduled",
+  href: "/admin/scheduled",
+},
+            {
               name: "Drafts",
               href: "/admin/drafts",
             },

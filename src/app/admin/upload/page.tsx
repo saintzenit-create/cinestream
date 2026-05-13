@@ -152,13 +152,18 @@ const paginatedVideos =
 
   if (editingId) {
 
-    const submitData = {
+   const submitData = {
   ...form,
 
+  publish_at:
+    form.publish_at
+      ? form.publish_at
+      : null,
+
   episode_number:
-  !form.episode_number
-    ? null
-    : Number(form.episode_number),
+    !form.episode_number
+      ? null
+      : Number(form.episode_number),
 };
 
 const result = await supabase
@@ -173,10 +178,13 @@ const result = await supabase
     const submitData = {
   ...form,
 
-  episode_number:
+  publish_at:
+    form.publish_at
+      ? form.publish_at
+      : null,
 
-    !form.episode_number ||
-    form.episode_number === 0
+  episode_number:
+    !form.episode_number
       ? null
       : Number(form.episode_number),
 };

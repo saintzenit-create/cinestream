@@ -7,40 +7,42 @@ const supabase = createClient(
 );
 
 export async function GET() {
+  const now = new Date().toISOString();
 
-  const now =
-    new Date().toISOString();
-
-  const { data } =
-    await supabase
-      .from("videos")
-      .select("*")
-      .eq("status", "scheduled")
-      .lte("publish_at", now);
+  // ambil data yang belum diproses
+  const { data } = await supabase
+    .from("videos")
+    .select("*")
+    .eq("status", "scheduled")
+    .eq("processing", false)
+    .lte("publish_at", now);
 
   if (!data?.length) {
-
     return NextResponse.json({
       success: true,
       updated: 0,
     });
-
   }
 
-  for (const video of data) {
+  const ids = data.map(v => v.id);
 
-    await supabase
-      .from("videos")
-      .update({
-        status: "published",
-      })
-      .eq("id", video.id);
+  // LOCK dulu biar tidak double run
+  await supabase
+    .from("videos")
+    .update({ processing: true })
+    .in("id", ids);
 
-  }
+  // publish
+  await supabase
+    .from("videos")
+    .update({
+      status: "published",
+      processing: false,
+    })
+    .in("id", ids);
 
   return NextResponse.json({
     success: true,
-    updated: data.length,
+    updated: ids.length,
   });
-
 }

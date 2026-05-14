@@ -1,0 +1,14 @@
+name: Cron Publish Videos
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # tiap 5 menit
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Vercel API
+        run: curl -X GET https://YOUR-DOMAIN.vercel.app/api/cron/publish

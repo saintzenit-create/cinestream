@@ -34,7 +34,11 @@ export default async function ScheduledPage() {
 
             Publish:
             {" "}
-            {video.publish_at}
+            {new Date(
+  video.publish_at
+).toLocaleString("id-ID", {
+  timeZone: "Asia/Jakarta",
+})}
 
           </p>
 

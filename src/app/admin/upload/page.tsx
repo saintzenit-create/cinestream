@@ -159,7 +159,9 @@ const paginatedVideos =
     form.status,
 
   publish_at:
-    form.publish_at || null,
+  form.publish_at
+    ? new Date(form.publish_at).toISOString()
+    : null,
 
   episode_number:
     !form.episode_number
@@ -183,7 +185,9 @@ const result = await supabase
     form.status,
 
   publish_at:
-    form.publish_at || null,
+  form.publish_at
+    ? new Date(form.publish_at).toISOString()
+    : null,
 
   episode_number:
     !form.episode_number

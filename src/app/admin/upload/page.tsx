@@ -155,10 +155,11 @@ const paginatedVideos =
    const submitData = {
   ...form,
 
+  status:
+    form.status,
+
   publish_at:
-    form.publish_at
-      ? form.publish_at
-      : null,
+    form.publish_at || null,
 
   episode_number:
     !form.episode_number
@@ -178,10 +179,11 @@ const result = await supabase
     const submitData = {
   ...form,
 
+  status:
+    form.status,
+
   publish_at:
-    form.publish_at
-      ? form.publish_at
-      : null,
+    form.publish_at || null,
 
   episode_number:
     !form.episode_number
@@ -666,22 +668,27 @@ async function handleDelete(id: number) {
   talent: video.talent || '',
   talent_image:
     video.talent_image || '',
+
   featured:
     video.featured || false,
-    trending:
-  video.trending || false,
-    player_type:
-  video.player_type || 'mp4',
+
+  trending:
+    video.trending || false,
+
+  player_type:
+    video.player_type || 'mp4',
+
   series_title:
-  video.series_title || '',
+    video.series_title || '',
 
-episode_number:
-  video.episode_number || 0,
+  episode_number:
+    video.episode_number || 0,
+
   status:
-  video.status || 'published',
+    video.status || 'published',
 
-publish_at:
-  video.publish_at || '',
+  publish_at:
+    video.publish_at || '',
 });
 
     setPreview(

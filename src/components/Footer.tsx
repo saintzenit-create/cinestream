@@ -81,7 +81,12 @@ export default function Footer() {
         {/* Bottom Links */}
         <div className="mt-4 pt-4 border-t border-[#1c1c1c] flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link href="/about" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">Tentang Kami</Link>
-          <Link href="/privacy" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">Kebijakan Privasi</Link>
+          <Link
+  href="/privacy-policy"
+  className="text-xs text-[#707070] hover:text-[#a0a0a0] transition"
+>
+  Kebijakan Privasi
+</Link>
           <Link href="/terms" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">Syarat & Ketentuan</Link>
           <Link href="/dmca" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">DMCA</Link>
           <Link href="/contact" className="text-xs text-[#707070] hover:text-[#a0a0a0] transition">Kontak</Link>

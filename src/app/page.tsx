@@ -2,6 +2,8 @@ import { getAllVideos } from "@/lib/videos";
 import VideoCard from "@/components/VideoCard";
 import HeroSection from "@/components/HeroSection";
 import LatestVideos from "@/components/LatestVideos";
+import AdsterraNative
+from "@/components/AdsterraNative";
 
 export const dynamic =
   "force-dynamic";
@@ -52,7 +54,7 @@ export default async function HomePage() {
 ))}
 
         </div>
-
+<AdsterraNative />
       </section>
 
       {/* LATEST VIDEOS */}
@@ -71,7 +73,7 @@ export default async function HomePage() {
         </div>
 
         <LatestVideos videos={videos} />
-
+<AdsterraNative />
       </section>
 
       {/* TALENT */}
@@ -129,6 +131,7 @@ export default async function HomePage() {
   </a>
 
 </div>
+<AdsterraNative />
 </section>
 
       {/* CATEGORIES */}
@@ -153,7 +156,7 @@ export default async function HomePage() {
           ))}
 
         </div>
-
+<AdsterraNative />
       </section>
 
     </main>

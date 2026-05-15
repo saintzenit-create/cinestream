@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AdsterraSocial
+from "@/components/AdsterraSocial";
 
 
 export const viewport: Viewport = {
@@ -30,7 +32,7 @@ export const metadata = {
   },
 
   description:
-    'Streaming film, series, anime dan video premium kualitas HD subtitle Indonesia.',
+    'Streaming video, series, anime dan video premium kualitas HD subtitle Indonesia.',
 
   keywords: [
     'scandal',
@@ -160,7 +162,7 @@ export default function RootLayout({
     </main>
 
     <Footer />
-
+<AdsterraSocial />
   </body>
 
 </html>

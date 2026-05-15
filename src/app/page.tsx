@@ -54,7 +54,7 @@ export default async function HomePage() {
 ))}
 
         </div>
-<AdsterraNative />
+
       </section>
 
       {/* LATEST VIDEOS */}
@@ -73,7 +73,7 @@ export default async function HomePage() {
         </div>
 
         <LatestVideos videos={videos} />
-<AdsterraNative />
+
       </section>
 
       {/* TALENT */}
@@ -131,7 +131,7 @@ export default async function HomePage() {
   </a>
 
 </div>
-<AdsterraNative />
+
 </section>
 
       {/* CATEGORIES */}
@@ -156,7 +156,7 @@ export default async function HomePage() {
           ))}
 
         </div>
-<AdsterraNative />
+
       </section>
 
     </main>

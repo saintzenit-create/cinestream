@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import VideoPlayer from "@/components/VideoPlayer";
 import RealtimeViews from '@/components/RealtimeViews';
+import AdsterraNative
+from "@/components/AdsterraNative";
 import Comments from '@/components/Comments';
 import { Metadata } from 'next';
 import {
@@ -119,7 +121,7 @@ export default async function WatchPage({
   slug={video.slug}
   downloadUrl={video.video_url}
 />
-
+  <AdsterraNative />
 </section>
           {/* INFO */}
           <section className="py-6">

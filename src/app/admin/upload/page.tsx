@@ -156,10 +156,14 @@ const paginatedVideos =
   ...form,
 
   status:
-    form.status,
+  form.status === "published"
+    ? "published"
+    : "scheduled",
 
-  publish_at:
-  form.publish_at
+publish_at:
+  form.status === "published"
+    ? null
+    : form.publish_at
     ? new Date(form.publish_at).toISOString()
     : null,
 
@@ -182,10 +186,14 @@ const result = await supabase
   ...form,
 
   status:
-    form.status,
+  form.status === "published"
+    ? "published"
+    : "scheduled",
 
-  publish_at:
-  form.publish_at
+publish_at:
+  form.status === "published"
+    ? null
+    : form.publish_at
     ? new Date(form.publish_at).toISOString()
     : null,
 

@@ -5,8 +5,9 @@ export default async function LatestPage() {
 
   const videos = await getAllVideos();
 
-  const latestVideos = Array.isArray(videos)
-    ? [...videos].reverse()
+  const latestVideos =
+  Array.isArray(videos)
+    ? videos
     : [];
 
   return (

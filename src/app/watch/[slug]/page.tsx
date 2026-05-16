@@ -1,3 +1,5 @@
+export const dynamic =
+  "force-dynamic";
 import { notFound } from "next/navigation";
 import VideoPlayer from "@/components/VideoPlayer";
 import RealtimeViews from '@/components/RealtimeViews';

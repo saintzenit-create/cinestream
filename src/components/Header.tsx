@@ -156,6 +156,7 @@ useEffect(() => {
 
 }, []);
   const filteredResults = searchQuery
+  
     ? allItems
         .filter((item: any) =>
           item?.title
@@ -164,7 +165,23 @@ useEffect(() => {
         )
         .slice(0, 8)
     : [];
-
+const filteredTalents = searchQuery
+  ? [
+      ...new Set(
+        allItems
+          .filter((item: any) =>
+            item?.talent
+              ?.toLowerCase()
+              .includes(
+                searchQuery.toLowerCase()
+              )
+          )
+          .map(
+            (item: any) => item.talent
+          )
+      ),
+    ].slice(0, 5)
+  : [];
   return (
     <>
       {/* SEARCH OVERLAY */}
@@ -224,7 +241,87 @@ useEffect(() => {
                     {searchQuery}"
                   </p>
                 )}
+{filteredTalents.length > 0 && (
 
+  <div className="mb-10">
+
+    <h2 className="text-xl font-bold mb-5">
+      Talents
+    </h2>
+
+    <div className="space-y-3">
+
+      {filteredTalents.map(
+        (talent: any) => {
+
+          const talentData =
+            allItems.find(
+              (item: any) =>
+                item.talent === talent
+            );
+
+          return (
+
+            <div
+              key={talent}
+              onClick={() => {
+
+                router.push(
+                  `/talent/${encodeURIComponent(
+                    talent
+                  )}`
+                );
+
+                setSearchOpen(false);
+
+              }}
+              className="bg-zinc-900 hover:bg-zinc-800 transition rounded-2xl p-4 flex items-center gap-4 cursor-pointer"
+            >
+
+              <img
+                src={
+                  talentData?.talent_image ||
+                  '/assets/images/no_image.png'
+                }
+                alt={talent}
+                className="w-16 h-16 rounded-xl object-cover"
+              />
+
+              <div>
+
+                <h3 className="font-bold text-lg">
+                  {highlightText(
+                    talent,
+                    searchQuery
+                  )}
+                </h3>
+
+                <p className="text-zinc-400 text-sm">
+
+  {
+    allItems.filter(
+      (item: any) =>
+        item.talent === talent
+    ).length
+  }
+  {" "}Videos
+
+</p>
+
+              </div>
+
+            </div>
+
+          );
+
+        }
+      )}
+
+    </div>
+
+  </div>
+
+)}
               {filteredResults.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
                   {filteredResults.map((item: any) => (

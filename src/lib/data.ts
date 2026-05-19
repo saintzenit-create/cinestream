@@ -3,7 +3,8 @@ import { supabase } from "./supabase";
 export async function getAllVideos() {
   const { data, error } = await supabase
     .from("videos")
-    .select("*");
+.select("*")
+.eq("status", "published");
 
   console.log("SUPABASE DATA:", data);
   console.log("SUPABASE ERROR:", error);
@@ -14,9 +15,10 @@ export async function getAllVideos() {
 export async function getVideoBySlug(slug: string) {
   const { data } = await supabase
     .from("videos")
-    .select("*")
-    .eq("slug", slug)
-    .single();
+.select("*")
+.eq("status", "published")
+.eq("slug", slug)
+.single();
 
   return data;
 }
@@ -31,8 +33,9 @@ export async function getRelatedVideos(
 
   const { data } = await supabase
     .from("videos")
-    .select("*")
-    .ilike("category", `%${firstCategory}%`)
+.select("*")
+.eq("status", "published")
+.ilike("category", `%${firstCategory}%`)
     .neq("slug", currentSlug)
     .limit(12);
 

@@ -9,9 +9,9 @@ getAllVideos() {
       .from("videos")
       .select("*")
       .eq("status", "published")
-      .order("id", {
-        ascending: false,
-      });
+      .order("publish_at", {
+  ascending: false,
+});
 
   if (response.error) {
 

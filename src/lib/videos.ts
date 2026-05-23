@@ -5,14 +5,14 @@ export async function
 getAllVideos() {
 
   const response =
-    await supabase
-      .from("videos")
-      .select("*")
-      .eq("status", "published")
-.not("publish_at", "is", null)
-.order("publish_at", {
-  ascending: false,
-});
+  await supabase
+    .from("videos")
+    .select("*")
+    .eq("status", "published")
+    .order("publish_at", {
+      ascending: false,
+      nullsFirst: false,
+    });
 
   if (response.error) {
 

@@ -9,7 +9,8 @@ getAllVideos() {
       .from("videos")
       .select("*")
       .eq("status", "published")
-      .order("publish_at", {
+.not("publish_at", "is", null)
+.order("publish_at", {
   ascending: false,
 });
 

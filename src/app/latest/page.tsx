@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAllVideos } from "@/lib/videos";
 import VideoCard from "@/components/VideoCard";
 

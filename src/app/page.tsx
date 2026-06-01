@@ -2,6 +2,8 @@ import { getAllVideos } from "@/lib/videos";
 import VideoCard from "@/components/VideoCard";
 import HeroSection from "@/components/HeroSection";
 import LatestVideos from "@/components/LatestVideos";
+import HomeCategories
+from "@/components/HomeCategories";
 import AdsterraNative
 from "@/components/AdsterraNative";
 
@@ -141,21 +143,9 @@ export default async function HomePage() {
           Categories
         </h2>
 
-        <div className="flex flex-wrap gap-4">
-
-          {categories.map((category) => (
-
-            <a
-              key={String(category)}
-              href={`/category/${category}`}
-              className="bg-zinc-900 hover:bg-pink-600 transition px-6 py-3 rounded-full font-medium"
-            >
-              {String(category)}
-            </a>
-
-          ))}
-
-        </div>
+        <HomeCategories
+  categories={categories.map(String)}
+/>
 
       </section>
 

@@ -6,11 +6,16 @@ import RealtimeViews from '@/components/RealtimeViews';
 import AdsterraNative
 from "@/components/AdsterraNative";
 import Comments from '@/components/Comments';
+import Link from "next/link";
 import { Metadata } from 'next';
 import {
   getVideoBySlug,
   getRelatedVideos,
 } from "@/lib/data";
+
+import {
+  getAllVideos,
+} from "@/lib/videos";
 
 type Props = {
   params: Promise<{
@@ -96,14 +101,23 @@ export default async function WatchPage({
 
   const video = await getVideoBySlug(slug);
 
-  if (!video) {
-    notFound();
-  }
+if (!video) {
+  notFound();
+}
 
-  const related = await getRelatedVideos(
-    video.category,
-    video.slug
-  );
+const allVideos =
+  await getAllVideos();
+
+const talentVideoCount =
+  allVideos.filter(
+    (item: any) =>
+      item.talent === video.talent
+  ).length;
+
+const related = await getRelatedVideos(
+  video.category,
+  video.slug
+);
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -123,7 +137,54 @@ export default async function WatchPage({
   slug={video.slug}
   downloadUrl={video.video_url}
 />
-  <AdsterraNative />
+
+<Link
+  href={`/talent/${encodeURIComponent(
+    video.talent
+  )}`}
+  className="mt-6 bg-zinc-900 hover:bg-zinc-800 rounded-2xl p-4 flex items-center gap-4 transition"
+>
+
+  <img
+    src={
+      video.talent_image ||
+      "/assets/images/no_image.png"
+    }
+    alt={video.talent}
+    className="w-16 h-16 rounded-xl object-cover"
+  />
+
+  <div>
+
+    <h3 className="font-bold text-lg">
+      {video.talent}
+    </h3>
+
+    <p className="text-zinc-400 text-sm">
+      View Talent Profile
+    </p>
+
+    <div className="flex flex-wrap gap-3 mt-2 text-sm text-zinc-400">
+
+      <span>
+        ⭐ Talent
+      </span>
+
+      <span>
+        👁 {Number(video.views || 0).toLocaleString()}
+      </span>
+
+      <span>
+        🎬 {talentVideoCount} Videos
+      </span>
+
+    </div>
+
+  </div>
+
+</Link>
+
+<AdsterraNative />
 </section>
           {/* INFO */}
           <section className="py-6">

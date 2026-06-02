@@ -108,6 +108,25 @@ async function handleImageUpload(
 useEffect(() => {
   fetchVideos();
 }, []);
+const allTalents = [
+  ...new Set(
+    videos
+      .map((v: any) => v.talent)
+      .filter(Boolean)
+  ),
+];
+
+const allCategories = [
+  ...new Set(
+    videos
+      .flatMap((v: any) =>
+        String(v.category || "")
+          .split(",")
+          .map((c) => c.trim())
+      )
+      .filter(Boolean)
+  ),
+];
 const filteredVideos = videos.filter((video) =>
 
   video.title
@@ -443,31 +462,63 @@ async function handleDelete(id: number) {
 
 </select>
 
-          <input
-            type="text"
-            placeholder="Category (pisahkan dengan koma)"
-            value={form.category}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                category: e.target.value,
-              })
-            }
-            className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
-          />
+          <>
+  <input
+    type="text"
+    list="category-list"
+    placeholder="Category (pisahkan dengan koma)"
+    value={form.category}
+    onChange={(e) =>
+      setForm({
+        ...form,
+        category: e.target.value,
+      })
+    }
+    className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
+  />
 
-          <input
-            type="text"
-            placeholder="Talent"
-            value={form.talent}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                talent: e.target.value,
-              })
-            }
-            className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
-          />
+  <datalist id="category-list">
+
+    {allCategories.map((category) => (
+
+      <option
+        key={category}
+        value={category}
+      />
+
+    ))}
+
+  </datalist>
+</>
+
+          <>
+  <input
+    type="text"
+    list="talent-list"
+    placeholder="Talent"
+    value={form.talent}
+    onChange={(e) =>
+      setForm({
+        ...form,
+        talent: e.target.value,
+      })
+    }
+    className="w-full h-14 px-5 rounded-xl bg-zinc-900 outline-none"
+  />
+
+  <datalist id="talent-list">
+
+    {allTalents.map((talent) => (
+
+      <option
+        key={talent}
+        value={talent}
+      />
+
+    ))}
+
+  </datalist>
+</>
           <input
   type="text"
   placeholder="Series Title"
